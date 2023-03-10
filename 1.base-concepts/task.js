@@ -5,9 +5,8 @@ function solveEquation(a, b, c) {
   const degree = Math.pow(b, 2);
   const discriminant = degree - 4 * a * c;
 
-  if (discriminant < 0) {
-    return arr;
-  } else if (discriminant === 0) {
+
+  if (discriminant === 0) {
     arr.push(-b / (2 * a));
   } else if (discriminant > 0) {
     arr.push((-b + Math.sqrt(discriminant)) / (2 * a), (-b - Math.sqrt(discriminant)) / (2 * a));
@@ -18,11 +17,7 @@ function solveEquation(a, b, c) {
 
 function calculateTotalMortgage(percent, contribution, amount, countMonths) {
 
-  if (typeof (percent) !== typeof (NaN)) {
-    return false;
-  } else if (typeof (contribution) !== typeof (NaN)) {
-    return false;
-  } else if (typeof (amount) !== typeof (NaN)) {
+  if (isNaN(percent) || isNaN(contribution) || isNaN(amount)) {
     return false;
   }
 
