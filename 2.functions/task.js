@@ -1,21 +1,27 @@
-function getArrayParams(...arr) {
+function getArrayParams(...rest) {
+  const min = Math.min(...rest);
+  const max = Math.max(...rest);
+  const sum = rest.reduce((accumulator, currentValue) => accumulator + currentValue);
+
+  const averageValueOfTheSum = sum / rest.length;
+  const avg = +averageValueOfTheSum.toFixed(2);
 
   return { min: min, max: max, avg: avg };
 }
 
-function summElementsWorker(...arr) {
+function summElementsWorker(...rest) {
 
 }
 
-function differenceMaxMinWorker(...arr) {
+function differenceMaxMinWorker(...rest) {
 
 }
 
-function differenceEvenOddWorker(...arr) {
+function differenceEvenOddWorker(...rest) {
 
 }
 
-function averageEvenElementsWorker(...arr) {
+function averageEvenElementsWorker(...rest) {
 
 }
 
