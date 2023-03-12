@@ -10,7 +10,11 @@ function getArrayParams(...rest) {
 }
 
 function summElementsWorker(...rest) {
-
+  if (rest.length === 0) {
+    return 0;
+  } else {
+    return rest.reduce((accumulator, currentValue) => accumulator + currentValue);
+  }
 }
 
 function differenceMaxMinWorker(...rest) {
