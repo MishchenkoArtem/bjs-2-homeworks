@@ -86,3 +86,42 @@ class Library {
         return book;
     }
 }
+
+class Student {
+    constructor(name) {
+        this.name = name;
+        this.marks = {};
+    }
+
+    addMark (mark, item) {
+        if (mark < 2 || mark > 5) {
+            return false;
+        }
+
+        if (!this.marks.hasOwnProperty(item)) {
+            this.marks[item] = [];
+        }
+
+        this.marks[item].push(mark);
+    }
+
+    getAverageBySubject (item) {
+        if (!this.marks.hasOwnProperty(item)) {
+            return 0;
+        }
+
+        return this.marks[item].reduce((acc, item) => acc + item, 0) / this.marks[item].length;
+    }
+
+    getAverage () {
+        const item = Object.keys(this.marks);
+        let sum;
+
+        item.reduce((acc, item) => {
+            acc += this.getAverageBySubject(item);
+            return sum = acc;
+        }, 0);
+
+        return isNaN(sum) ? 0 : sum / item.length;
+    }
+}
