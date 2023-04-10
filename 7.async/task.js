@@ -5,7 +5,7 @@ class AlarmClock {
   }
 
   addClock(time, callback) {
-    if (typeof callback === "undefined" || typeof time === "undefined") {
+    if (!callback || !time) {
       throw new Error("Отсутствуют обязательные аргументы");
     }
     for (let key in this.alarmCollection) {
@@ -13,7 +13,7 @@ class AlarmClock {
         console.warn("Уже присутствует звонок на это же время");
       }
     }
-    return this.alarmCollection.push({
+    this.alarmCollection.push({
       time: time,
       callback: callback,
       canCall: true,
@@ -21,17 +21,7 @@ class AlarmClock {
   }
 
   removeClock(time) {
-    // this.alarmCollection = this.alarmCollection.filter((element) => {
-    //   if (element.time === time) {
-    //     delete this.alarmCollection.time;
-    //   }
-    // });
-
-    for (let key in this.alarmCollection) {
-      if (this.alarmCollection[key].time === time) {
-        delete this.alarmCollection[key].time;
-      }
-    }
+    this.alarmCollection = this.alarmCollection.filter((element) => element.time !== time);
   }
 
   getCurrentFormattedTime() {
@@ -39,32 +29,30 @@ class AlarmClock {
   }
 
   start() {
-    if (typeof this.intervalId !== "undefined") {
+    if (this.intervalId) {
       return false;
     }
 
     this.intervalId = setInterval(() => {
       this.alarmCollection.forEach((element) => {
         if (
-          getCurrentFormattedTime() === element.time &&
+          this.getCurrentFormattedTime() === element.time &&
           element.canCall === true
         ) {
-          this.alarmCollection.canCall = false;
-          this.alarmCollection.callback;
+          element.canCall = false;
+          element.callback();
         }
       });
     }, 1000);
   }
 
   stop() {
-    clearInterval();
+    clearInterval(this.intervalId);
     this.intervalId = null;
   }
 
   resetAllCalls() {
-    this.alarmCollection.forEach((element) => {
-      return element.canCall = true;
-    });
+    this.alarmCollection.forEach((element) => element.canCall = true);
   }
 
   clearAlarms() {
